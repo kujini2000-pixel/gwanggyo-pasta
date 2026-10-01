@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>광교 근교 숲·마운틴뷰 파스타 & 티타임 드라이브 코스 (4인 가족)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FBF9F5;
+      --bg-card: #FFFFFF;
+      --bg-warm-sub: #F3EFEA;
+      --text-main: #2C2825;
+      --text-muted: #6E6862;
+      --text-accent: #8A6D4B;
+      --border-soft: #E7E0D8;
+      --badge-bg: #EAE3D9;
+      --naver-green: #03C75A;
+      --shadow-sm: 0 4px 12px rgba(44, 40, 37, 0.05);
+      --shadow-md: 0 12px 32px rgba(44, 40, 37, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #1A1918;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--text-main);
+      overflow-x: hidden;
+      padding: 16px;
+    }
+
+    /* 슬라이드 프레임 (16:9 비율) */
+    .deck-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-cream);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-aspect-ratio: 16/9) or (max-width: 900px) {
+      .deck-container {
+        aspect-ratio: auto;
+        min-height: 720px;
+      }
+    }
+
+    /* 슬라이드 관리 */
+    .slide-wrapper {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(30px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 44px 56px 70px 56px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      z-index: 2;
+    }
+
+    /* 상단 헤더 & 태그 */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 14px;
+    }
+
+    .slide-title-group h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .slide-title-group p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--badge-bg);
+      color: var(--text-accent);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* 1페이지: 요약 그리드 */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .summary-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .summary-card-img {
+      height: 140px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .summary-card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .summary-card-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .summary-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 4px 0 8px 0;
+      color: var(--text-main);
+    }
+
+    .summary-meta-list {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .summary-meta-list li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-card-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-main);
+      background: var(--bg-warm-sub);
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: auto;
+    }
+
+    .timeline-banner {
+      background: #FFFFFF;
+      border: 1px dashed var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .timeline-steps {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .timeline-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--text-accent);
+      border-radius: 50%;
+    }
+
+    .timeline-arrow {
+      color: #A39B92;
+    }
+
+    /* 코스 상세 페이지 (2, 3, 4페이지) */
+    .course-detail-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      flex: 1;
+    }
+
+    .hero-img-box {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      height: 270px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-img-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(44, 40, 37, 0.75);
+      color: #FFF;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .info-list-box {
+      margin-top: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-item {
+      display: flex;
+      font-size: 13.5px;
+      line-height: 1.4;
+    }
+
+    .info-label {
+      width: 90px;
+      font-weight: 600;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .info-val {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* 우측 메뉴 영역 */
+    .menu-section {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-subtitle {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .menu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .menu-thumb {
+      width: 85px;
+      height: 85px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .menu-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .menu-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .menu-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* 네이버 지도 버튼 */
+    .map-btn-wrap {
+      margin-top: auto;
+      padding-top: 12px;
+    }
+
+    .naver-map-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--naver-green);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(3, 199, 90, 0.25);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .naver-map-btn:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+    }
+
+    /* 하단 컨트롤러 */
+    .deck-footer {
+      height: 58px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      z-index: 10;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #D6CEC5;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .dot.active {
+      background-color: var(--text-accent);
+      width: 24px;
+      border-radius: 10px;
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .nav-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      background: var(--bg-warm-sub);
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      padding: 7px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      background: #EAE3D9;
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* 모바일 조정 */
+    @media (max-width: 768px) {
+      .deck-container {
+        padding: 0;
+      }
+      .slide {
+        padding: 24px 20px 70px 20px;
+      }
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      .course-detail-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .timeline-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-container">
+    <div class="slide-wrapper">
+
+      <!-- SLIDE 1: 요약 비교 및 타임테이블 -->
+      <section class="slide active" id="slide-1">
+        <div class="slide-header">
+          <div class="slide-title-group">
+            <h2>광교 근교 숲·마운틴뷰 드라이브 & 파스타 코스</h2>
+            <p>4인 가족(부부 + 딸 2명)을 위한 아침 출발 힐링 반일 나들이 (편도 40분 이내)</p>
+          </div>
+          <span class="badge">PAGE 01 / SUMMARY</span>
+        </div>
+
+        <div class="summary-grid">
+          <!-- 코스 1 카드 -->
+          <div class="summary-card" onclick="goToSlide(1)" style="cursor: pointer;">
+            <img class="summary-card-img" src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=600&q=80" alt="묵리459 감성 카페">
+            <div class="summary-card-body">
+              <span class="summary-card-num">COURSE 01</span>
+              <h3 class="summary-card-title">용인 묵리459</h3>
+              <ul class="summary-meta-list">
+                <li>⏱️ <strong>이동 시간:</strong> 광교에서 자차 35분</li>
+                <li>🌿 <strong>풍경 테마:</strong> 숲속 모던 갤러리 뷰</li>
+                <li>🍝 <strong>대표 메뉴:</strong> 들깨 버섯 크림 파스타</li>
+              </ul>
+              <div class="summary-card-desc">
+                식사와 티타임 공간이 분리된 올인원 갤러리 카페. 이른 오픈(10:30)으로 한적한 브런치 가능.
+              </div>
+            </div>
+          </div>
+
+          <!-- 코스 2 카드 -->
+          <div class="summary-card" onclick="goToSlide(2)" style="cursor: pointer;">
+            <img class="summary-card-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="스멜츠">
+            <div class="summary-card-body">
+              <span class="summary-card-num">COURSE 02</span>
+              <h3 class="summary-card-title">경기 광주 스멜츠</h3>
+              <ul class="summary-meta-list">
+                <li>⏱️ <strong>이동 시간:</strong> 광교에서 자차 25~30분</li>
+                <li>🌲 <strong>풍경 테마:</strong> 압도적 통창 파노라마 숲뷰</li>
+                <li>🍝 <strong>대표 메뉴:</strong> 바질 페스토 파스타</li>
+              </ul>
+              <div class="summary-card-desc">
+                SNS 최고 인기 숲뷰 명소. 거리 가깝고 사진이 가장 예쁘게 나와 따님들 만족도 최고.
+              </div>
+            </div>
+          </div>
+
+          <!-- 코스 3 카드 -->
+          <div class="summary-card" onclick="goToSlide(3)" style="cursor: pointer;">
+            <img class="summary-card-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="라임그라스">
+            <div class="summary-card-body">
+              <span class="summary-card-num">COURSE 03</span>
+              <h3 class="summary-card-title">용인 양지 라임그라스</h3>
+              <ul class="summary-meta-list">
+                <li>⏱️ <strong>이동 시간:</strong> 광교에서 자차 35분</li>
+                <li>🌳 <strong>풍경 테마:</strong> 5,000평 대형 잔디정원</li>
+                <li>🍝 <strong>대표 메뉴:</strong> 명란 오일 파스타 / 베이커리</li>
+              </ul>
+              <div class="summary-card-desc">
+                오전 10:00 오픈으로 가장 이른 식사 가능. 드넓은 정원 산책과 대형 베이커리 완비.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-banner">
+          <span style="font-weight: 700; color: var(--text-accent);">⏱️ 추천 반일 일정 타임테이블</span>
+          <div class="timeline-steps">
+            <div class="timeline-step">
+              <span class="timeline-dot"></span>
+              <span><strong>09:50</strong> 광교 출발</span>
+            </div>
+            <span class="timeline-arrow">➔</span>
+            <div class="timeline-step">
+              <span class="timeline-dot"></span>
+              <span><strong>10:30</strong> 이른 점심 파스타</span>
+            </div>
+            <span class="timeline-arrow">➔</span>
+            <div class="timeline-step">
+              <span class="timeline-dot"></span>
+              <span><strong>11:45</strong> 숲·정원 산책 & 티타임</span>
+            </div>
+            <span class="timeline-arrow">➔</span>
+            <div class="timeline-step">
+              <span class="timeline-dot"></span>
+              <span><strong>12:45</strong> 광교 귀가 (오후 정체 회피)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: 코스 1 - 용인 묵리459 -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="slide-title-group">
+            <h2>코스 1. [용인 처인구] 묵리459</h2>
+            <p>자연 속 갤러리 감성 & 이동 없는 원스톱 숲속 브런치/티타임</p>
+          </div>
+          <span class="badge">COURSE 01</span>
+        </div>
+
+        <div class="course-detail-layout">
+          <!-- 좌측: 대표 사진 및 정보 -->
+          <div>
+            <div class="hero-img-box">
+              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1000&q=80" alt="묵리459 감성 카페 전경">
+              <span class="hero-img-badge">숲속 갤러리 감성 카페</span>
+            </div>
+            <div class="info-list-box">
+              <div class="info-item">
+                <span class="info-label">📍 위치정보</span>
+                <span class="info-val">경기 용인시 처인구 이동읍 이원로 484</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">🚗 가는 시간</span>
+                <span class="info-val">광교 기준 <strong>자차 약 35분</strong> (45번 국도 이용)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">⏰ 오픈시간</span>
+                <span class="info-val">매일 10:30 ~ 20:00 (브런치 10:30 주문 시작)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">🅿️ 주차정보</span>
+                <span class="info-val">매장 전용 대형 주차장 무료 이용 (초보 운전도 쾌적)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 우측: 추천 메뉴 및 네이버 지도 링크 -->
+          <div class="menu-section">
+            <div class="section-subtitle">🍝 추천 메뉴 정보</div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=300&q=80" alt="들깨 버섯 크림 파스타">
+              <div class="menu-info">
+                <div class="menu-title">들깨 버섯 크림 파스타</div>
+                <div class="menu-desc">고소한 들깨향과 진한 버섯 크림 소스가 어우러진 시그니처 웰빙 파스타 (어머니·따님 모두 선호)</div>
+              </div>
+            </div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=300&q=80" alt="쉬림프 로제 파스타">
+              <div class="menu-info">
+                <div class="menu-title">쉬림프 로제 파스타</div>
+                <div class="menu-desc">탱글한 통새우와 부드럽고 매콤달콤한 수제 로제 소스가 듬뿍 담긴 가족 인기 메뉴</div>
+              </div>
+            </div>
+
+            <div class="map-btn-wrap">
+              <a class="naver-map-btn" href="https://map.naver.com/p/search/%EB%AC%B5%EB%A6%AC459" target="_blank" rel="noopener noreferrer">
+                <span>📍 네이버 지도에서 위치·길찾기 보기</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: 코스 2 - 경기 광주 스멜츠 -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="slide-title-group">
+            <h2>코스 2. [경기 광주 신현동] 스멜츠 (Smeltz)</h2>
+            <p>파노라마 통창 너머로 쏟아지는 숲과 마운틴뷰, 사진 명소</p>
+          </div>
+          <span class="badge">COURSE 02</span>
+        </div>
+
+        <div class="course-detail-layout">
+          <!-- 좌측: 대표 사진 및 정보 -->
+          <div>
+            <div class="hero-img-box">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80" alt="스멜츠 전경">
+              <span class="hero-img-badge">2층 통창 파노라마 숲뷰</span>
+            </div>
+            <div class="info-list-box">
+              <div class="info-item">
+                <span class="info-label">📍 위치정보</span>
+                <span class="info-val">경기 광주시 신현로 103</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">🚗 가는 시간</span>
+                <span class="info-val">광교 기준 <strong>자차 약 25~30분</strong> (분당 인접, 가장 가까움)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">⏰ 오픈시간</span>
+                <span class="info-val">매일 10:30 ~ 22:00 (식사 10:30 주문 시작)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">💡 꿀팁/연계</span>
+                <span class="info-val">차량 3분 거리 숲속 베이커리 <strong>'카페슈샤'</strong>와 연계 가능</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 우측: 추천 메뉴 및 네이버 지도 링크 -->
+          <div class="menu-section">
+            <div class="section-subtitle">🍝 추천 메뉴 정보</div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1579684947550-22e945225d9a?auto=format&fit=crop&w=300&q=80" alt="바질 페스토 파스타">
+              <div class="menu-info">
+                <div class="menu-title">바질 페스토 파스타</div>
+                <div class="menu-desc">향긋한 생바질과 잣, 신선한 치즈가 듬뿍 어우러져 깔끔하고 산뜻한 비주얼 대표 파스타</div>
+              </div>
+            </div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=300&q=80" alt="클래식 까르보나라 & 마르게리따">
+              <div class="menu-info">
+                <div class="menu-title">클래식 까르보나라 / 화덕피자</div>
+                <div class="menu-desc">노른자와 판체타 풍미를 살린 정통 까르보나라와 쫄깃한 도우의 화덕피자 세트</div>
+              </div>
+            </div>
+
+            <div class="map-btn-wrap">
+              <a class="naver-map-btn" href="https://map.naver.com/p/search/%EC%8A%A4%EB%A9%9C%EC%B8%A0" target="_blank" rel="noopener noreferrer">
+                <span>📍 네이버 지도에서 위치·길찾기 보기</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: 코스 3 - 용인 양지 라임그라스 -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="slide-title-group">
+            <h2>코스 3. [용인 양지] 라임그라스 (Lime Grass)</h2>
+            <p>5,000평 대형 야외 정원 산책 & 10:00 오픈 여유로운 브런치</p>
+          </div>
+          <span class="badge">COURSE 03</span>
+        </div>
+
+        <div class="course-detail-layout">
+          <!-- 좌측: 대표 사진 및 정보 -->
+          <div>
+            <div class="hero-img-box">
+              <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80" alt="라임그라스 정원">
+              <span class="hero-img-badge">5,000평 가든 리조트 감성</span>
+            </div>
+            <div class="info-list-box">
+              <div class="info-item">
+                <span class="info-label">📍 위치정보</span>
+                <span class="info-val">경기 용인시 처인구 양지면 한터로 529-9</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">🚗 가는 시간</span>
+                <span class="info-val">광교 기준 <strong>자차 약 35분</strong> (영동고속도로 용인/양지IC)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">⏰ 오픈시간</span>
+                <span class="info-val">매일 <strong>10:00</strong> ~ 22:00 (가장 이른 시간부터 이용 가능)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">🌳 정원특징</span>
+                <span class="info-val">넓은 잔디밭 산책로, 야외 불멍존, 대형 베이커리 팩토리</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 우측: 추천 메뉴 및 네이버 지도 링크 -->
+          <div class="menu-section">
+            <div class="section-subtitle">🍝 추천 메뉴 정보</div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=300&q=80" alt="명란 오일 파스타">
+              <div class="menu-info">
+                <div class="menu-title">명란 오일 파스타</div>
+                <div class="menu-desc">저염 명란의 감칠맛과 마늘종, 엑스트라 버진 올리브오일의 담백한 조화 (남녀노소 호불호 없음)</div>
+              </div>
+            </div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=300&q=80" alt="비프 로제 파스타 & 베이커리">
+              <div class="menu-info">
+                <div class="menu-title">비프 로제 파스타 & 수제 빵</div>
+                <div class="menu-desc">부드러운 소고기가 듬뿍 들어간 로제 파스타와 식후 갓 구운 베이커리 빵 티타임</div>
+              </div>
+            </div>
+
+            <div class="map-btn-wrap">
+              <a class="naver-map-btn" href="https://map.naver.com/p/search/%EB%9D%BC%EC%9E%84%EA%B7%B8%EB%9D%BC%EC%8A%A4" target="_blank" rel="noopener noreferrer">
+                <span>📍 네이버 지도에서 위치·길찾기 보기</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 하단 PPT 내비게이션 바 -->
+    <div class="deck-footer">
+      <div class="progress-dots">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+      </div>
+      <div class="slide-counter" id="slide-counter">1 / 4</div>
+      <div class="nav-btns">
+        <button class="btn-nav" id="prev-btn" onclick="prevSlide()" disabled>◀ 이전</button>
+        <button class="btn-nav" id="next-btn" onclick="nextSlide()">다음 ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const counter = document.getElementById('slide-counter');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function updateSlide() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+      counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === slides.length - 1;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < slides.length) {
+        currentSlide = index;
+        updateSlide();
+      }
+    }
+
+    // 키보드 방향키 및 스페이스바 지원
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>
