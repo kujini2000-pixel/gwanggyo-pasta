@@ -47,7 +47,7 @@
     .deck-container {
       position: relative;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1240px;
       aspect-ratio: 16 / 9;
       background: var(--bg-cream);
       border-radius: var(--radius-lg);
@@ -57,10 +57,10 @@
       flex-direction: column;
     }
 
-    @media (max-aspect-ratio: 16/9) or (max-width: 900px) {
+    @media (max-aspect-ratio: 16/9) or (max-width: 960px) {
       .deck-container {
         aspect-ratio: auto;
-        min-height: 720px;
+        min-height: 740px;
       }
     }
 
@@ -81,8 +81,8 @@
       opacity: 0;
       visibility: hidden;
       transform: translateX(30px);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 44px 56px 70px 56px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 40px 50px 65px 50px;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -100,22 +100,22 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       border-bottom: 1px solid var(--border-soft);
-      padding-bottom: 14px;
+      padding-bottom: 12px;
     }
 
     .slide-title-group h2 {
-      font-size: 26px;
+      font-size: 25px;
       font-weight: 700;
       color: var(--text-main);
       letter-spacing: -0.5px;
     }
 
     .slide-title-group p {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     .badge {
@@ -124,19 +124,19 @@
       gap: 6px;
       background-color: var(--badge-bg);
       color: var(--text-accent);
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 20px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
     }
 
-    /* 1페이지: 요약 그리드 */
+    /* 1페이지: 4개 코스 요약 그리드 */
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
       flex: 1;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .summary-card {
@@ -156,20 +156,20 @@
     }
 
     .summary-card-img {
-      height: 140px;
+      height: 125px;
       width: 100%;
       object-fit: cover;
     }
 
     .summary-card-body {
-      padding: 18px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
 
     .summary-card-num {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-accent);
       text-transform: uppercase;
@@ -177,35 +177,38 @@
     }
 
     .summary-card-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      margin: 4px 0 8px 0;
+      margin: 3px 0 6px 0;
       color: var(--text-main);
     }
 
     .summary-meta-list {
       list-style: none;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .summary-meta-list li {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .summary-card-desc {
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 12px;
+      line-height: 1.45;
       color: var(--text-main);
       background: var(--bg-warm-sub);
-      padding: 10px;
-      border-radius: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
       margin-top: auto;
     }
 
@@ -213,28 +216,28 @@
       background: #FFFFFF;
       border: 1px dashed var(--border-soft);
       border-radius: var(--radius-md);
-      padding: 14px 20px;
+      padding: 12px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
     .timeline-steps {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .timeline-step {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .timeline-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       background: var(--text-accent);
       border-radius: 50%;
     }
@@ -243,11 +246,11 @@
       color: #A39B92;
     }
 
-    /* 코스 상세 페이지 (2, 3, 4페이지) */
+    /* 코스 상세 페이지 (2, 3, 4, 5페이지) */
     .course-detail-layout {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
-      gap: 32px;
+      gap: 28px;
       flex: 1;
     }
 
@@ -267,11 +270,11 @@
 
     .hero-img-badge {
       position: absolute;
-      top: 14px;
-      left: 14px;
-      background: rgba(44, 40, 37, 0.75);
+      top: 12px;
+      left: 12px;
+      background: rgba(44, 40, 37, 0.78);
       color: #FFF;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       padding: 5px 12px;
       border-radius: 20px;
@@ -279,24 +282,24 @@
     }
 
     .info-list-box {
-      margin-top: 16px;
+      margin-top: 14px;
       background: var(--bg-card);
       border: 1px solid var(--border-soft);
       border-radius: var(--radius-md);
-      padding: 16px 20px;
+      padding: 14px 18px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .info-item {
       display: flex;
-      font-size: 13.5px;
+      font-size: 13px;
       line-height: 1.4;
     }
 
     .info-label {
-      width: 90px;
+      width: 85px;
       font-weight: 600;
       color: var(--text-muted);
       flex-shrink: 0;
@@ -311,11 +314,11 @@
     .menu-section {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .section-subtitle {
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       color: var(--text-main);
       display: flex;
@@ -334,8 +337,8 @@
     }
 
     .menu-thumb {
-      width: 85px;
-      height: 85px;
+      width: 82px;
+      height: 82px;
       border-radius: 8px;
       object-fit: cover;
       flex-shrink: 0;
@@ -348,13 +351,13 @@
     }
 
     .menu-title {
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--text-main);
     }
 
     .menu-desc {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--text-muted);
       margin-top: 4px;
       line-height: 1.4;
@@ -363,7 +366,7 @@
     /* 네이버 지도 버튼 */
     .map-btn-wrap {
       margin-top: auto;
-      padding-top: 12px;
+      padding-top: 10px;
     }
 
     .naver-map-btn {
@@ -375,10 +378,10 @@
       background: var(--naver-green);
       color: #FFFFFF;
       text-decoration: none;
-      padding: 12px 18px;
+      padding: 11px 16px;
       border-radius: var(--radius-md);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13.5px;
       box-shadow: 0 4px 12px rgba(3, 199, 90, 0.25);
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
@@ -390,13 +393,13 @@
 
     /* 하단 컨트롤러 */
     .deck-footer {
-      height: 58px;
+      height: 54px;
       background: var(--bg-card);
       border-top: 1px solid var(--border-soft);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 36px;
+      padding: 0 32px;
       z-index: 10;
     }
 
@@ -407,8 +410,8 @@
     }
 
     .dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background-color: #D6CEC5;
       cursor: pointer;
@@ -417,33 +420,33 @@
 
     .dot.active {
       background-color: var(--text-accent);
-      width: 24px;
+      width: 22px;
       border-radius: 10px;
     }
 
     .slide-counter {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--text-muted);
     }
 
     .nav-btns {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .btn-nav {
       background: var(--bg-warm-sub);
       border: 1px solid var(--border-soft);
       color: var(--text-main);
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 12.5px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       transition: background 0.2s ease;
     }
 
@@ -456,20 +459,26 @@
       cursor: not-allowed;
     }
 
-    /* 모바일 조정 */
-    @media (max-width: 768px) {
-      .deck-container {
-        padding: 0;
-      }
-      .slide {
-        padding: 24px 20px 70px 20px;
-      }
+    /* 모바일 & 태블릿 반응형 */
+    @media (max-width: 900px) {
       .summary-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
       .course-detail-layout {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 18px;
+      }
+      .hero-img-box {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .slide {
+        padding: 24px 18px 70px 18px;
+      }
+      .summary-grid {
+        grid-template-columns: 1fr;
       }
       .timeline-banner {
         flex-direction: column;
@@ -484,12 +493,12 @@
   <div class="deck-container">
     <div class="slide-wrapper">
 
-      <!-- SLIDE 1: 요약 비교 및 타임테이블 -->
+      <!-- SLIDE 1: 요약 비교 및 타임테이블 (4개 코스) -->
       <section class="slide active" id="slide-1">
         <div class="slide-header">
           <div class="slide-title-group">
             <h2>광교 근교 숲·마운틴뷰 드라이브 & 파스타 코스</h2>
-            <p>4인 가족(부부 + 딸 2명)을 위한 아침 출발 힐링 반일 나들이 (편도 40분 이내)</p>
+            <p>4인 가족(부부 + 딸 2명)을 위한 아침 출발 힐링 반일 나들이 (편도 20~35분)</p>
           </div>
           <span class="badge">PAGE 01 / SUMMARY</span>
         </div>
@@ -502,12 +511,12 @@
               <span class="summary-card-num">COURSE 01</span>
               <h3 class="summary-card-title">용인 묵리459</h3>
               <ul class="summary-meta-list">
-                <li>⏱️ <strong>이동 시간:</strong> 광교에서 자차 35분</li>
-                <li>🌿 <strong>풍경 테마:</strong> 숲속 모던 갤러리 뷰</li>
-                <li>🍝 <strong>대표 메뉴:</strong> 들깨 버섯 크림 파스타</li>
+                <li>⏱️ <strong>시간:</strong> 자차 35분 (45번 국도)</li>
+                <li>🌿 <strong>테마:</strong> 숲속 모던 갤러리 감성</li>
+                <li>🍝 <strong>메뉴:</strong> 들깨 버섯 크림 파스타</li>
               </ul>
               <div class="summary-card-desc">
-                식사와 티타임 공간이 분리된 올인원 갤러리 카페. 이른 오픈(10:30)으로 한적한 브런치 가능.
+                식사와 티타임이 분리된 올인원 갤러리. 10:30 오픈으로 한적한 브런치 가능.
               </div>
             </div>
           </div>
@@ -519,12 +528,12 @@
               <span class="summary-card-num">COURSE 02</span>
               <h3 class="summary-card-title">경기 광주 스멜츠</h3>
               <ul class="summary-meta-list">
-                <li>⏱️ <strong>이동 시간:</strong> 광교에서 자차 25~30분</li>
-                <li>🌲 <strong>풍경 테마:</strong> 압도적 통창 파노라마 숲뷰</li>
-                <li>🍝 <strong>대표 메뉴:</strong> 바질 페스토 파스타</li>
+                <li>⏱️ <strong>시간:</strong> 자차 25~30분 (분당 인접)</li>
+                <li>🌲 <strong>테마:</strong> 통창 파노라마 숲뷰</li>
+                <li>🍝 <strong>메뉴:</strong> 바질 페스토 파스타</li>
               </ul>
               <div class="summary-card-desc">
-                SNS 최고 인기 숲뷰 명소. 거리 가깝고 사진이 가장 예쁘게 나와 따님들 만족도 최고.
+                사계절 숲이 가득 찬 뷰 맛집. 사진이 가장 예쁘게 나와 따님들 만족도 최고.
               </div>
             </div>
           </div>
@@ -536,12 +545,29 @@
               <span class="summary-card-num">COURSE 03</span>
               <h3 class="summary-card-title">용인 양지 라임그라스</h3>
               <ul class="summary-meta-list">
-                <li>⏱️ <strong>이동 시간:</strong> 광교에서 자차 35분</li>
-                <li>🌳 <strong>풍경 테마:</strong> 5,000평 대형 잔디정원</li>
-                <li>🍝 <strong>대표 메뉴:</strong> 명란 오일 파스타 / 베이커리</li>
+                <li>⏱️ <strong>시간:</strong> 자차 35분 (양지IC)</li>
+                <li>🌳 <strong>테마:</strong> 5,000평 대형 잔디정원</li>
+                <li>🍝 <strong>메뉴:</strong> 명란 오일 파스타/베이커리</li>
               </ul>
               <div class="summary-card-desc">
-                오전 10:00 오픈으로 가장 이른 식사 가능. 드넓은 정원 산책과 대형 베이커리 완비.
+                10:00 오픈으로 가장 이른 식사 가능. 산책로와 대형 베이커리 완비.
+              </div>
+            </div>
+          </div>
+
+          <!-- 코스 4 카드 (신규 추가: 엘리펀트빌리지) -->
+          <div class="summary-card" onclick="goToSlide(4)" style="cursor: pointer;">
+            <img class="summary-card-img" src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=600&q=80" alt="엘리펀트빌리지">
+            <div class="summary-card-body">
+              <span class="summary-card-num">COURSE 04</span>
+              <h3 class="summary-card-title">용인 엘리펀트빌리지</h3>
+              <ul class="summary-meta-list">
+                <li>⏱️ <strong>시간:</strong> 자차 20~25분 (가장 가까움)</li>
+                <li>🌴 <strong>테마:</strong> 이국적 유럽 리조트 감성</li>
+                <li>🍝 <strong>메뉴:</strong> 투움바 파스타 / 화덕피자</li>
+              </ul>
+              <div class="summary-card-desc">
+                유럽 빌리지풍 화려한 인테리어와 가성비·푸짐한 양. 호수공원 산책 연계 훌륭.
               </div>
             </div>
           </div>
@@ -552,22 +578,22 @@
           <div class="timeline-steps">
             <div class="timeline-step">
               <span class="timeline-dot"></span>
-              <span><strong>09:50</strong> 광교 출발</span>
+              <span><strong>09:50~10:10</strong> 광교 출발</span>
             </div>
             <span class="timeline-arrow">➔</span>
             <div class="timeline-step">
               <span class="timeline-dot"></span>
-              <span><strong>10:30</strong> 이른 점심 파스타</span>
+              <span><strong>10:30~11:00</strong> 이른 점심 파스타</span>
             </div>
             <span class="timeline-arrow">➔</span>
             <div class="timeline-step">
               <span class="timeline-dot"></span>
-              <span><strong>11:45</strong> 숲·정원 산책 & 티타임</span>
+              <span><strong>11:45~12:15</strong> 숲·정원 산책 & 티타임</span>
             </div>
             <span class="timeline-arrow">➔</span>
             <div class="timeline-step">
               <span class="timeline-dot"></span>
-              <span><strong>12:45</strong> 광교 귀가 (오후 정체 회피)</span>
+              <span><strong>12:50</strong> 광교 귀가 (오후 정체 회피)</span>
             </div>
           </div>
         </div>
@@ -663,7 +689,7 @@
               </div>
               <div class="info-item">
                 <span class="info-label">🚗 가는 시간</span>
-                <span class="info-val">광교 기준 <strong>자차 약 25~30분</strong> (분당 인접, 가장 가까움)</span>
+                <span class="info-val">광교 기준 <strong>자차 약 25~30분</strong> (분당 인접, 빠른 접근)</span>
               </div>
               <div class="info-item">
                 <span class="info-label">⏰ 오픈시간</span>
@@ -750,7 +776,7 @@
               <img class="menu-thumb" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=300&q=80" alt="명란 오일 파스타">
               <div class="menu-info">
                 <div class="menu-title">명란 오일 파스타</div>
-                <div class="menu-desc">저염 명란의 감칠맛과 마늘종, 엑스트라 버진 올리브오일의 담백한 조화 (남녀노소 호불호 없음)</div>
+                <div class="menu-desc">저염 명란의 감칠맛과 마늘종, 엑스트라 버진 올리브오일의 담백한 조화 (호불호 없음)</div>
               </div>
             </div>
 
@@ -771,17 +797,84 @@
         </div>
       </section>
 
+      <!-- SLIDE 5: 코스 4 - 용인 기흥 엘리펀트빌리지 (신규) -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="slide-title-group">
+            <h2>코스 4. [용인 기흥] 엘리펀트빌리지 (Elephant Village)</h2>
+            <p>이국적인 유럽 리조트풍 대형 공간 & 풍성하고 가성비 좋은 패밀리 이탈리안</p>
+          </div>
+          <span class="badge">COURSE 04</span>
+        </div>
+
+        <div class="course-detail-layout">
+          <!-- 좌측: 대표 사진 및 정보 -->
+          <div>
+            <div class="hero-img-box">
+              <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1000&q=80" alt="엘리펀트빌리지 인테리어">
+              <span class="hero-img-badge">유럽 리조트 감성 패밀리 레스토랑</span>
+            </div>
+            <div class="info-list-box">
+              <div class="info-item">
+                <span class="info-label">📍 위치정보</span>
+                <span class="info-val">경기 용인시 기흥구 언동로71번길 51 (신동백 인근)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">🚗 가는 시간</span>
+                <span class="info-val">광교 기준 <strong>자차 약 20~25분</strong> (4개 코스 중 가장 가까움)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">⏰ 오픈시간</span>
+                <span class="info-val">매일 11:00 ~ 21:00 (브레이크타임 15:00~17:00)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">💡 연계 팁</span>
+                <span class="info-val">식사 후 <strong>동백 호수공원 산책</strong> 또는 인근 대형 카페 연계 최적</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 우측: 추천 메뉴 및 네이버 지도 링크 -->
+          <div class="menu-section">
+            <div class="section-subtitle">🍝 추천 메뉴 정보</div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=300&q=80" alt="투움바 파스타">
+              <div class="menu-info">
+                <div class="menu-title">투움바 파스타 (시그니처)</div>
+                <div class="menu-desc">매콤하고 고소한 특제 크림소스에 탱글한 새우와 버섯이 듬뿍 들어간 압도적 인기 1위 메뉴</div>
+              </div>
+            </div>
+
+            <div class="menu-card">
+              <img class="menu-thumb" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=300&q=80" alt="갈릭 쉬림프 피자">
+              <div class="menu-info">
+                <div class="menu-title">갈릭 쉬림프 피자 / 샥슈카</div>
+                <div class="menu-desc">달콤 짭조름한 마늘 소스와 통새우 피자, 따뜻한 토마토 샥슈카 등 가족이 나눠먹기 좋은 구성</div>
+              </div>
+            </div>
+
+            <div class="map-btn-wrap">
+              <a class="naver-map-btn" href="https://map.naver.com/p/search/%EC%97%98%EB%A6%AC%ED%8E%80%ED%8A%B8%EB%B9%8C%EB%A6%AC%EC%87%80" target="_blank" rel="noopener noreferrer">
+                <span>📍 네이버 지도에서 위치·길찾기 보기</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
 
-    <!-- 하단 PPT 내비게이션 바 -->
+    <!-- 하단 PPT 내비게이션 바 (총 5페이지) -->
     <div class="deck-footer">
       <div class="progress-dots">
         <div class="dot active" onclick="goToSlide(0)"></div>
         <div class="dot" onclick="goToSlide(1)"></div>
         <div class="dot" onclick="goToSlide(2)"></div>
         <div class="dot" onclick="goToSlide(3)"></div>
+        <div class="dot" onclick="goToSlide(4)"></div>
       </div>
-      <div class="slide-counter" id="slide-counter">1 / 4</div>
+      <div class="slide-counter" id="slide-counter">1 / 5</div>
       <div class="nav-btns">
         <button class="btn-nav" id="prev-btn" onclick="prevSlide()" disabled>◀ 이전</button>
         <button class="btn-nav" id="next-btn" onclick="nextSlide()">다음 ▶</button>
